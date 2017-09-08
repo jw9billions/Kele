@@ -1,7 +1,7 @@
 require 'httparty'
 require 'json'
 #require 'roadmap'
-require '/Users/jane/BlocRuby/code/Kele/lib/roadmap.rb'
+require './lib/roadmap.rb'
 
 class Kele
   include HTTParty
@@ -46,6 +46,20 @@ class Kele
                                 headers: { "authorization" => @auth_token}
                                 )
     response.success? puts "Message sent, Thanks!"
+  end
+
+  def create_submission(assignment_branch, assignment_commit_link, checkpoint_id, comment, enrollment_id)
+    response = self.class.post('/checkpoint_submission',
+                                body: {
+                                        "assignment_branch": assignment_branch,
+                                        "assignment_commit_link": assignment_commit_link,
+                                        "checkpoint_id": checkpoint_id,
+                                        "comment": comment,
+                                        "enrollment_id": enrollment_id
+                                      },
+                                headers: {"authorization" => @auth_token}
+                              )
+    puts response
   end
 
   private
