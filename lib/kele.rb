@@ -27,9 +27,9 @@ class Kele
 
   def get_messages(page = nil)
     if page.nil?
-      response = self.class.get('/message_threads', headers: { "authorization" => @auth_token})
+      response = self.class.get(api_url('/message_threads'), headers: { "authorization" => @auth_token})
     else
-      response = self.class.get('/message_threads?page=#{n}', headers: { "authorization" => @auth_token})
+      response = self.class.get(api_url('/message_threads?#{page}'), headers: { "authorization" => @auth_token})
     end
     @messages = JSON.parse(response.body)
   end
