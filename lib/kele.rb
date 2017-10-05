@@ -25,12 +25,8 @@ class Kele
     @mentor_availability = JSON.parse(response.body)
   end
 
-  def get_messages(page = nil)
-    if page.nil?
-      response = self.class.get(api_url('message_threads'), headers: { "authorization" => @auth_token})
-    else
-      response = self.class.get(api_url('message_threads?#{page}'), headers: { "authorization" => @auth_token})
-    end
+  def get_messages(page)
+    response = self.class.get(api_url("message_threads?page=#{page}"), headers: { "authorization" => @auth_token })
     @messages = JSON.parse(response.body)
   end
 
